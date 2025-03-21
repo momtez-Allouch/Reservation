@@ -1,13 +1,20 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
 import { AuthService } from './auth.service';
+import { UserService } from 'src/user/user.service';
+import { User } from '@prisma/client';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(
+    private readonly authService: AuthService,
+    private readonly userService: UserService,
+  ) {}
 
   @Post('signup')
-  async signUp(@Body() body: { email: string; password: string }) {
-    return this.authService.signUp(body.email, body.password);
+  async signUp(@Body() body: User) {
+    const signupUser = await this.authService.signUp(body);
+    await this.userService.create({ ...body, role: 'customer' });
+    return signupUser;
   }
 
   @Post('signin')

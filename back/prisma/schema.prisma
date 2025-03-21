@@ -13,10 +13,12 @@ datasource db {
 model User {
   id           String         @id @default(uuid())
   createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @default(now())
+  deletedAt    DateTime?      
   name         String?
   email        String?        @unique
   password     String?
-  role         Role
+  role         Role?
   phone        String?
 
   reservations Reservation[]  // Ajout de cette ligne pour la relation
@@ -29,10 +31,12 @@ enum Role {
 
 model Reservation {
   id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  deletedAt DateTime? 
   userId    String
   date      DateTime
   status    BookingStatus @default(pending)
-  createdAt DateTime @default(now())
 
   user      User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
