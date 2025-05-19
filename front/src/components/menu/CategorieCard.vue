@@ -1,16 +1,22 @@
 <template>
-  <div class="home-section">
+  <div class="category-card">
     <div class="title">{{ title }}</div>
-    <slot />
+    <div class="category-card-content">
+      <div v-for="product in products" class="category-item">
+        <div>{{ product.name }}</div>
+        <div>{{ product.price }}</div>
+      </div>
+    </div>
   </div>
 </template>
 <script setup lang="ts">
 const props = defineProps<{
   title: string;
+  products: [];
 }>();
 </script>
 <style lang="scss" scoped>
-.home-section {
+.category-card {
   border-radius: 8px;
   opacity: 1;
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.001), rgba(0, 0, 0, 0.001)),
@@ -23,12 +29,15 @@ const props = defineProps<{
   flex-wrap: wrap;
   align-content: flex-start;
   z-index: 1;
-  .title {
-    font-size: 18px;
-    font-weight: 600;
-    line-height: 28px;
-    letter-spacing: 0px;
-    color: #000000;
+  .category-card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 100%;
+    .category-item {
+      display: flex;
+      justify-content: space-between;
+    }
   }
 }
 </style>

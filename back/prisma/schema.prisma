@@ -47,3 +47,30 @@ enum BookingStatus {
   canceled
   completed
 }
+
+model Category {
+  id          String    @id @default(uuid())
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  deletedAt   DateTime?
+  name        String?
+  coverImage  String?
+  description String?
+  
+  products    Product[]
+}
+
+model Product {
+  id          String    @id @default(uuid())
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  deletedAt   DateTime?
+  name        String?
+  price       Decimal?
+  description String?
+  coverImage  String?
+  quantity    Int?
+
+  categoryId  String
+  category    Category  @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+}

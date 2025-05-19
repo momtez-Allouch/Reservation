@@ -11,11 +11,15 @@
     "type-check": "vue-tsc --build"
   },
   "dependencies": {
+    "axios": "^1.8.4",
     "element-plus": "^2.9.6",
+    "konva": "^9.3.20",
     "pinia": "^3.0.1",
     "vue": "^3.5.13",
     "vue-inline-svg": "^4.0.0",
-    "vue-router": "^4.5.0"
+    "vue-konva": "^3.2.0",
+    "vue-router": "^4.5.0",
+    "vue3-carousel": "^0.15.0"
   },
   "devDependencies": {
     "@tsconfig/node22": "^22.0.0",

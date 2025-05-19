@@ -1,11 +1,12 @@
 <template>
   <div class="home-page">
     <HeaderSection />
+    <MenuItemsButtons />
     <HeaderButtons />
     <HomeSection title="À Propos de Nous">
       <slot>
         <div class="slot-content">
-          <div>
+          <div class="slot-text">
             Situé au cœur de Paris, Le Bistrot Parisien vous propose une
             expérience gastronomique authentique. Notre chef étoilé combine
             traditions culinaires françaises et créativité moderne pour créer
@@ -18,11 +19,11 @@
       <slot>
         <div class="slot-content">
           <div class="open-hours-item">
-            <div>Lundi - Vendredi</div>
+            <div class="slot-text">Lundi - Vendredi</div>
             <div>12h00 - 23h00</div>
           </div>
           <div class="open-hours-item">
-            <div>Samedi</div>
+            <div class="slot-text">Samedi</div>
             <div>11h00 - 00h00</div>
           </div>
         </div>
@@ -65,6 +66,7 @@
 import HeaderSection from "@/components/HeaderSection.vue";
 import HeaderButtons from "@/components/home/HeaderButtons.vue";
 import HomeSection from "@/components/home/HomeSection.vue";
+import MenuItemsButtons from "@/components/MenuItemsButtons.vue";
 </script>
 
 <style lang="scss" scoped>
@@ -84,6 +86,13 @@ import HomeSection from "@/components/home/HomeSection.vue";
     .contact-item {
       display: flex;
       gap: 5px;
+    }
+    .slot-text {
+      font-size: 14px;
+      font-weight: normal;
+      line-height: 22.75px;
+      letter-spacing: 0px;
+      color: #4b5563;
     }
   }
 }

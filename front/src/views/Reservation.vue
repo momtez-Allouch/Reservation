@@ -1,91 +1,89 @@
-<script setup lang="ts">
-import { ref } from "vue";
-
-// Liste des tables avec leurs coordonnées, état et nombre de chaises
-const tables = ref([
-  { id: 1, x: 50, y: 100, reserved: false, chairs: 4 },
-  { id: 2, x: 200, y: 200, reserved: true, chairs: 2 },
-  { id: 3, x: 350, y: 300, reserved: false, chairs: 6 },
-]);
-
-// Gérer la réservation d'une table
-const toggleReservation = (table: any) => {
-  if (!table.reserved) {
-    alert(`Table ${table.id} réservée !`);
-    table.reserved = true;
-  } else {
-    alert(`Table ${table.id} est déjà réservée.`);
-  }
-};
-</script>
-
 <template>
-  <div class="table-map">
-    <div
-      v-for="table in tables"
-      :key="table.id"
-      class="table"
-      :class="{ reserved: table.reserved }"
-      :style="{ left: table.x + 'px', top: table.y + 'px' }"
-      @click="toggleReservation(table)"
-    >
-      <span>#{{ table.id }}</span>
-      <div class="chairs">
-        <div v-for="n in table.chairs" :key="n" class="chair"></div>
-      </div>
-    </div>
+  <div class="reservation-page">
+    <el-row :gutter="20">
+      <el-col :xs="24" :sm="24" :md="8" :lg="8" :xl="1">
+        <div class="card">
+          <el-form :model="form" label-width="auto" style="max-width: 600px">
+            <el-form-item label="Activity name">
+              <el-input v-model="form.name" />
+            </el-form-item>
+            <el-form-item label="Activity zone">
+              <el-select
+                v-model="form.region"
+                placeholder="please select your zone"
+              >
+                <el-option label="Zone one" value="shanghai" />
+                <el-option label="Zone two" value="beijing" />
+              </el-select>
+            </el-form-item>
+            <el-form-item label="Activity time">
+              <el-col :span="11">
+                <el-date-picker
+                  v-model="form.date1"
+                  type="date"
+                  placeholder="Pick a date"
+                  style="width: 100%"
+                />
+              </el-col>
+              <el-col :span="2" class="text-center">
+                <span class="text-gray-500">-</span>
+              </el-col>
+              <el-col :span="11">
+                <el-time-picker
+                  v-model="form.date2"
+                  placeholder="Pick a time"
+                  style="width: 100%"
+                />
+              </el-col>
+            </el-form-item>
+            <el-form-item label="Instant delivery">
+              <el-switch v-model="form.delivery" />
+            </el-form-item>
+            <el-form-item label="Activity type">
+              <el-checkbox-group v-model="form.type">
+                <el-checkbox value="Online activities" name="type">
+                  Online activities
+                </el-checkbox>
+                <el-checkbox value="Promotion activities" name="type">
+                  Promotion activities
+                </el-checkbox>
+                <el-checkbox value="Offline activities" name="type">
+                  Offline activities
+                </el-checkbox>
+                <el-checkbox value="Simple brand exposure" name="type">
+                  Simple brand exposure
+                </el-checkbox>
+              </el-checkbox-group>
+            </el-form-item>
+            <el-form-item label="Resources">
+              <el-radio-group v-model="form.resource">
+                <el-radio value="Sponsor">Sponsor</el-radio>
+                <el-radio value="Venue">Venue</el-radio>
+              </el-radio-group>
+            </el-form-item>
+            <el-form-item label="Activity form">
+              <el-input v-model="form.desc" type="textarea" />
+            </el-form-item>
+            <el-form-item>
+              <el-button type="primary" @click="onSubmit">Create</el-button>
+              <el-button>Cancel</el-button>
+            </el-form-item>
+          </el-form>
+        </div>
+      </el-col>
+      <el-col :xs="24" :sm="24" :md="16" :lg="24" :xl="1">
+        <div class="card">
+          <TablesPlan />
+        </div>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
-<style scoped>
-.table-map {
-  position: relative;
-  width: 600px;
-  height: 400px;
-  background: #f3f3f3;
-  border: 2px solid #ccc;
-  border-radius: 10px;
-  margin: auto;
-}
+<script lang="ts" setup>
+import { ref } from "vue";
+import TablesPlan from "@/components/TablesPlan.vue";
+const form = ref({});
+</script>
 
-.table {
-  position: absolute;
-  width: 50px;
-  height: 50px;
-  background: #4caf50;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: 0.3s;
-  font-size: 14px;
-  font-weight: bold;
-}
-
-.table.reserved {
-  background: #e74c3c;
-  cursor: not-allowed;
-}
-
-/* Position des chaises autour de la table */
-.chairs {
-  position: absolute;
-  width: 100px;
-  height: 100px;
-  top: -25px;
-  left: -25px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  align-items: center;
-}
-
-.chair {
-  width: 20px;
-  height: 20px;
-  background: #8b8b8b;
-  border-radius: 50%;
-}
-</style>
+<style lang="scss" scoped></style>

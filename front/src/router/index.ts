@@ -13,6 +13,22 @@ const router = createRouter({
       name: "reservation",
       component: () => import("../views/Reservation.vue"),
     },
+    //todo
+    {
+      path: "/reservation1",
+      name: "reservation1",
+      component: () => import("../views/Reservation1.vue"),
+    },
+    {
+      path: "/menu",
+      name: "menu",
+      component: () => import("../views/Menu.vue"),
+    },
+    {
+      path: "/about",
+      name: "about",
+      component: () => import("../views/About.vue"),
+    },
   ],
 });
 
